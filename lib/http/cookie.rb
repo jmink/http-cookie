@@ -349,12 +349,8 @@ class HTTP::Cookie
   # See #name.
   def name= name
     name = (String.try_convert(name) or
-      raise TypeError, "#{name.class} is not a String")
-    if name.empty?
-      raise ArgumentError, "cookie name cannot be empty"
-    elsif name.match(/[\x00-\x20\x7F,;\\"=]/)
-      raise ArgumentError, "invalid cookie name"
-    end
+        raise TypeError, "#{name.class} is not a String")
+    raise ArgumentError, "cookie name cannot be empty" if name.empty?
     # RFC 6265 4.1.1
     # cookie-name may not match:
     # /[\x00-\x20\x7F()<>@,;:\\"\/\[\]?={}]/
